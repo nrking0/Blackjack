@@ -1,7 +1,5 @@
 # Final Project Proposal
 
---------------
-
 ### Blackjack!!!
 For my final project in CS126, I thought it would be fun to create a playable 
 Blackjack game using [**Cinder**](https://libcinder.org/) to visualize the game. 
