@@ -70,6 +70,9 @@ ci_make_app(
         LIBRARIES       catch2
 )
 
+add_executable(main apps/main.cpp ${SOURCE_FILES})
+target_include_directories(main PRIVATE include)
+
 if(MSVC)
     set_property(TARGET blackjack-test APPEND_STRING PROPERTY LINK_FLAGS " /SUBSYSTEM:CONSOLE")
 endif()

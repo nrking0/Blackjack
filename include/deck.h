@@ -11,6 +11,9 @@ class Deck {
 public:
     Deck();
     int Size() const;
+    void Shuffle();
+    Card RemoveCard();
+    friend std::ostream& operator<<(std::ostream& os, Deck& deck);
 
 private:
     std::vector<Card> deck;

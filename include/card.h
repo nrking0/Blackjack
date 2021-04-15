@@ -1,6 +1,8 @@
 #ifndef BLACKJACK_CARD_H
 #define BLACKJACK_CARD_H
 
+#include <ostream>
+
 namespace blackjack {
 
 enum class Suit {
@@ -32,6 +34,7 @@ public:
     Card(Suit suit, Rank rank);
     Rank GetRank() const;
     Suit GetSuit() const;
+    friend std::ostream& operator<<(std::ostream& os, Card& card);
 
 private:
     Suit suit_;
