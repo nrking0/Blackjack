@@ -4,49 +4,53 @@
 
 namespace blackjack {
 
-    Player::Player(std::string name) {
-        name_ = std::move(name);
-        has_played_ = false;
-    }
+Player::Player(std::string name) {
+    name_ = std::move(name);
+    has_played_ = false;
+}
 
-    void Player::DealCard(Card card) {
-        hand_.push_back(card);
-    }
+const std::vector<Card>& Player::GetHand() const {
+    return hand_;
+}
 
-    void Player::ClearHand() {
-        hand_.clear();
-    }
+void Player::DealCard(Card card) {
+    hand_.push_back(card);
+}
 
-    bool Player::GetHasPlayed() const {
-        return has_played_;
-    }
+void Player::ClearHand() {
+    hand_.clear();
+}
 
-    std::string Player::GetName() const {
-        return name_;
-    }
+bool Player::GetHasPlayed() const {
+    return has_played_;
+}
 
-    int Player::GetScore() const {
-        int score = 0;
-        bool has_ace = false;
-        for (Card card : hand_) {
-            if ((int) card.GetRank() > 10) {
-                score += 10;
-            } else {
-                if ((int)card.GetRank() == 1) {
-                    has_ace = true;
-                }
-                score += (int) card.GetRank();
-            }
-        }
+std::string Player::GetName() const {
+    return name_;
+}
 
-        if (score <= 11 && has_ace) {
+int Player::GetScore() const {
+    int score = 0;
+    bool has_ace = false;
+    for (Card card : hand_) {
+        if ((int) card.GetRank() > 10) {
             score += 10;
+        } else {
+            if ((int)card.GetRank() == 1) {
+                has_ace = true;
+            }
+            score += (int) card.GetRank();
         }
-        return score;
     }
 
-    void Player::SetHasPlayed(bool has_played) {
-        has_played_ = has_played;
+    if (score <= 11 && has_ace) {
+        score += 10;
     }
+    return score;
+}
+
+void Player::SetHasPlayed(bool has_played) {
+    has_played_ = has_played;
+}
 
 } // namespace blackjack

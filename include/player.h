@@ -11,6 +11,7 @@ class Player {
 
 public:
     Player(std::string name);
+    const std::vector<Card>& GetHand() const;
     int GetScore() const;
     void DealCard(Card card);
     void ClearHand();
