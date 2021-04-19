@@ -32,6 +32,8 @@ public:
     void keyDown(ci::app::KeyEvent event) override;
 
 private:
+    const double kWindowSize = 600;
+    const double kMargin = 100;
     Turn current_turn_;
     std::vector<Player> players_;
     Player dealer_ = Player("Dealer");

@@ -6,17 +6,25 @@ namespace blackjack {
 GameEngine::GameEngine() {
     dealer_ = Player("Dealer");
     current_turn_ = Turn::HOME_SCREEN;
+
+    ci::app::setWindowSize((int) kWindowSize, (int)kWindowSize);
 }
 
 void GameEngine::draw() {
-    ci::Color8u background_color(50, 246, 50);
+    ci::Color8u background_color(30, 135, 70); // dark green
     ci::gl::clear(background_color);
 
     switch (current_turn_) {
         case Turn::HOME_SCREEN:
             ci::gl::drawStringCentered(
                     "Welcome to Blackjack",
-                    glm::vec2(150, 150), ci::Color("black"));
+                    glm::vec2(kWindowSize / 2, kWindowSize / 2),
+                    ci::Color("black"),
+                    cinder::Font("times", (float) kWindowSize / 10));
+            ci::gl::drawStringCentered(
+                    "Press Enter to Play",
+                    glm::vec2(kWindowSize / 2, (kWindowSize / 2) + kMargin),
+                    ci::Color("black"), cinder::Font("times", (float)kMargin / 8));
             break;
         case Turn::NUM_PLAYERS:
             break;
