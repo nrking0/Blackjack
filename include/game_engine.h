@@ -27,16 +27,19 @@ class GameEngine : public ci::app::App {
 public:
     GameEngine();
 
-    void PlayGame();
+    [[noreturn]] [[noreturn]] void PlayGame();
+    void Update();
     void draw() override;
     void keyDown(ci::app::KeyEvent event) override;
 
 private:
     const double kWindowSize = 600;
     const double kMargin = 100;
+    int num_players_;
     Turn current_turn_;
     std::vector<Player> players_;
     Player dealer_ = Player("Dealer");
+    void AddPlayers(int num_players);
 
 };
 
