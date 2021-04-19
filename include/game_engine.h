@@ -2,13 +2,10 @@
 #define BLACKJACK_GAME_ENGINE_H
 
 #include "player.h"
-//#include "../../../include/cinder/app/RendererGl.h"
-//#include "../../../include/cinder/gl/gl.h"
-//#include "../../../include/cinder/app/App.h"
-
 #include "cinder/app/App.h"
 #include "cinder/app/RendererGl.h"
 #include "cinder/gl/gl.h"
+#include "deck.h"
 
 
 namespace blackjack {
@@ -27,7 +24,6 @@ class GameEngine : public ci::app::App {
 public:
     GameEngine();
 
-    [[noreturn]] [[noreturn]] void PlayGame();
     void Update();
     void draw() override;
     void keyDown(ci::app::KeyEvent event) override;
@@ -36,6 +32,7 @@ private:
     const double kWindowSize = 600;
     const double kMargin = 100;
     int num_players_;
+    Deck deck;
     Turn current_turn_;
     std::vector<Player> players_;
     Player dealer_ = Player("Dealer");

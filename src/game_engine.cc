@@ -6,6 +6,11 @@ namespace blackjack {
 GameEngine::GameEngine() {
     dealer_ = Player("Dealer");
     current_turn_ = Turn::HOME_SCREEN;
+    num_players_ = 0;
+    deck = Deck();
+    deck.Shuffle();
+    dealer_.DealCard(deck.RemoveCard());
+    dealer_.DealCard(deck.RemoveCard());
 
     ci::app::setWindowSize((int) kWindowSize, (int)kWindowSize);
 }
