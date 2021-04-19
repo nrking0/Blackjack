@@ -48,7 +48,7 @@ void GameEngine::draw() {
                         ci::Color("black"),
                         cinder::Font("times", (float)kMargin / 8));
             }
-            std::string name = dealer_.GetName() + ": " + std::to_string(dealer_.GetScore());
+            std::string name = dealer_.GetName();
             ci::gl::drawStringCentered(
                     name,
                     glm::vec2(kWindowSize / 2, kMargin / 2),
