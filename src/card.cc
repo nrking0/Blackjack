@@ -78,5 +78,9 @@ std::ostream& operator<<(std::ostream& os, Card& card) {
     return os;
 }
 
+    bool operator==(Card& card, Card& other_card) {
+        return (card.GetSuit() == other_card.GetSuit() && card.GetRank() == other_card.GetRank());
+    }
+
 } // namespace blackjack
 

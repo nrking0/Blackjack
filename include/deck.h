@@ -13,10 +13,11 @@ public:
     int Size() const;
     void Shuffle();
     Card RemoveCard();
+    const std::vector<Card>& GetCards() const;
     friend std::ostream& operator<<(std::ostream& os, Deck& deck);
 
 private:
-    std::vector<Card> deck;
+    std::vector<Card> deck_;
 
 };
 
