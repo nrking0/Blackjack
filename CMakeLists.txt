@@ -56,7 +56,8 @@ list(APPEND SOURCE_FILES    src/card.cc
                             src/game_engine.cc)
 
 list(APPEND TEST_FILES tests/card_test.cc
-                        tests/deck_test.cc)
+                        tests/deck_test.cc
+                        tests/player_test.cc)
 
 ci_make_app(
         APP_NAME        blackjack

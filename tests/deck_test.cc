@@ -1,4 +1,5 @@
 #include <catch2/catch.hpp>
+#include <iostream>
 #include "deck.h"
 
 using blackjack::Deck;
@@ -24,7 +25,7 @@ TEST_CASE("Deck Creation") {
 
 TEST_CASE("Remove Card") {
     Deck deck = Deck();
-    Card card = deck.RemoveCard();
+    deck.RemoveCard();
 
     SECTION("Deck Size") {
         REQUIRE(deck.Size() == 51);
@@ -32,5 +33,7 @@ TEST_CASE("Remove Card") {
 }
 
 TEST_CASE("Test Shuffle") {
-
+    Deck deck = Deck();
+    deck.Shuffle();
+    std::cout << deck;
 }
