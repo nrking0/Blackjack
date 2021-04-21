@@ -29,7 +29,7 @@ public:
     void keyDown(ci::app::KeyEvent event) override;
 
 private:
-    const double kWindowSize = 600;
+    const double kWindowSize = 700;
     const double kMargin = 100;
     int num_players_;
     Deck deck;

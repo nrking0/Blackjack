@@ -41,6 +41,13 @@ void GameEngine::draw() {
             break;
         case Turn::PLAYERS_TURN: {
             for (int i = 0; i < num_players_; i++) {
+
+                ci::gl::Texture2dRef tex = ci::gl::Texture2d::create(
+                        loadImage(ci::app::loadAsset("2C.png" )));
+                ci::Rectf drawRect( 0, 0, tex->getWidth() / 3,
+                                tex->getHeight() / 3 );
+                ci::gl::draw(tex, drawRect);
+
                 std::string name = players_[i].GetName() + ": " + std::to_string(players_[i].GetScore());
                 ci::gl::drawStringCentered(
                         name,

@@ -1,5 +1,4 @@
 #include <iostream>
-#include "../include/card.h"
 #include "../include/deck.h"
 
 using namespace blackjack;
