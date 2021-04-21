@@ -42,11 +42,17 @@ void GameEngine::draw() {
         case Turn::PLAYERS_TURN: {
             for (int i = 0; i < num_players_; i++) {
 
-                ci::gl::Texture2dRef tex = ci::gl::Texture2d::create(
-                        loadImage(ci::app::loadAsset("2C.png" )));
-                ci::Rectf drawRect( 0, 0, tex->getWidth() / 3,
-                                tex->getHeight() / 3 );
-                ci::gl::draw(tex, drawRect);
+                int card_num = 0;
+                for (Card card : players_[i].GetHand()) {
+                    ci::gl::Texture2dRef tex = ci::gl::Texture2d::create(
+                            loadImage(ci::app::loadAsset(card.GetImageURL() )));
+                    ci::Rectf drawRect( kWindowSize * ((1.0 + i) / (1 + num_players_)) - (kMargin / 4) * (1 + players_[i].GetHand().size()) + card_num,
+                                        kWindowSize - (3 * kMargin),
+                                        kWindowSize * ((1.0 + i) / (1 + num_players_)) - (kMargin / 4) * (1 + players_[i].GetHand().size()) + card_num + (tex->getWidth() / 6),
+                                        kWindowSize - (3 * kMargin) + tex->getHeight() / 6);
+                    ci::gl::draw(tex, drawRect);
+                    card_num += 30;
+                }
 
                 std::string name = players_[i].GetName() + ": " + std::to_string(players_[i].GetScore());
                 ci::gl::drawStringCentered(
@@ -138,8 +144,13 @@ void GameEngine::AddPlayers(int num_players) {
     num_players_ = num_players;
     players_.clear();
     for (int i = 1; i <= num_players; i++) {
-        players_.emplace_back("Player " + std::to_string(i));
+        Player player = Player("Player " + std::to_string(i));
+        player.DealCard(deck.RemoveCard());
+        player.DealCard(deck.RemoveCard());
+        players_.push_back(player);
     }
+
+
 }
 
 } // namespace blackjack

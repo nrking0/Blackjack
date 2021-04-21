@@ -34,6 +34,7 @@ public:
     Card(Suit suit, Rank rank);
     Rank GetRank() const;
     Suit GetSuit() const;
+    std::string GetImageURL() const;
     friend std::ostream& operator<<(std::ostream& os, Card& card);
     friend bool operator==(Card& card, Card& other_card);
 

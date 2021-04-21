@@ -15,6 +15,70 @@ Suit Card::GetSuit() const {
     return this->suit_;
 }
 
+std::string Card::GetImageURL() const {
+    std::string url;
+
+    switch(this->GetRank()) {
+        case Rank::ACE:
+            url += "A";
+            break;
+        case Rank::TWO:
+            url += "2";
+            break;
+        case Rank::THREE:
+            url += "3";
+            break;
+        case Rank::FOUR:
+            url += "4";
+            break;
+        case Rank::FIVE:
+            url += "5";
+            break;
+        case Rank::SIX:
+            url += "6";
+            break;
+        case Rank::SEVEN:
+            url += "7";
+            break;
+        case Rank::EIGHT:
+            url += "8";
+            break;
+        case Rank::NINE:
+            url += "9";
+            break;
+        case Rank::TEN:
+            url += "10";
+            break;
+        case Rank::JACK:
+            url += "J";
+            break;
+        case Rank::QUEEN:
+            url += "Q";
+            break;
+        case Rank::KING:
+            url += "K";
+            break;
+    }
+
+    switch(this->GetSuit()) {
+        case Suit::CLUBS:
+            url += "C";
+            break;
+        case Suit::HEARTS:
+            url += "H";
+            break;
+        case Suit::SPADES:
+            url += "S";
+            break;
+        case Suit::DIAMONDS:
+            url += "D";
+            break;
+    }
+
+    url += ".png";
+    return url;
+}
+
 std::ostream& operator<<(std::ostream& os, Card& card) {
     std::string suit;
     std::string rank;
