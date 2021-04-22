@@ -31,12 +31,15 @@ public:
 private:
     const double kWindowSize = 750;
     const double kMargin = 100;
+    const double kCardMargin = 25;
     int num_players_;
     Deck deck;
     Turn current_turn_;
     std::vector<Player> players_;
     Player dealer_ = Player("Dealer");
     void AddPlayers(int num_players);
+    void Reset();
+    void DrawGameBoard(bool is_dealers_turn);
 
 };
 

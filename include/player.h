@@ -19,7 +19,6 @@ public:
     bool GetHasPlayed() const;
     void SetHasPlayed(bool has_played);
 
-
 private:
     std::string name_;
     std::vector<Card> hand_;
