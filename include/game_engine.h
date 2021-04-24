@@ -13,7 +13,6 @@ namespace blackjack {
 enum class Turn {
     HOME_SCREEN,
     NUM_PLAYERS,
-    PLAYERS_NAMES,
     PLAYERS_TURN,
     DEALERS_TURN,
     GAME_FINISHED
@@ -40,6 +39,7 @@ private:
     void AddPlayers(int num_players);
     void Reset();
     void DrawGameBoard(bool is_dealers_turn);
+
 
 };
 

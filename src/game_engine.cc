@@ -35,9 +35,7 @@ void GameEngine::draw() {
             ci::gl::drawStringCentered(
                     "Please select the number of players (1 through 4)",
                     glm::vec2(kWindowSize / 2, (kWindowSize / 2)),
-                    ci::Color("black"), cinder::Font("times", (float) kMargin / 8));
-            break;
-        case Turn::PLAYERS_NAMES:
+                    ci::Color("black"), cinder::Font("times", (float) kMargin / 5));
             break;
         case Turn::PLAYERS_TURN: {
             DrawGameBoard(false);
@@ -56,8 +54,6 @@ void GameEngine::Update() {
         case Turn::HOME_SCREEN:
             break;
         case Turn::NUM_PLAYERS:
-            break;
-        case Turn::PLAYERS_NAMES:
             break;
         case Turn::PLAYERS_TURN: {
             for (Player &player : players_) {
@@ -86,6 +82,8 @@ void GameEngine::Update() {
             while (dealer_.GetScore() < 17) {
                 dealer_.DealCard(deck.RemoveCard());
             }
+//            current_turn_ = Turn::GAME_FINISHED;
+//            Update();
             break;
         case Turn::GAME_FINISHED:
             break;
@@ -120,8 +118,6 @@ void GameEngine::keyDown(ci::app::KeyEvent event) {
                 case ci::app::KeyEvent::KEY_q:
                     current_turn_ = Turn::HOME_SCREEN;
             }
-            break;
-        case Turn::PLAYERS_NAMES:
             break;
         case Turn::PLAYERS_TURN:
             switch (event.getCode()) {
@@ -215,8 +211,8 @@ void GameEngine::DrawGameBoard(bool is_dealers_turn) {
         ci::gl::drawStringCentered(
                 name,
                 glm::vec2(kWindowSize * ((1.0 + i) / (1 + num_players_)), kWindowSize - kMargin / 2),
-                ci::Color("black"),
-                cinder::Font("times", (float) kMargin / 8));
+                ci::Color("white"),
+                cinder::Font("times", (float) kMargin / 7));
     }
 
 
@@ -259,8 +255,8 @@ void GameEngine::DrawGameBoard(bool is_dealers_turn) {
     ci::gl::drawStringCentered(
             name,
             glm::vec2(kWindowSize / 2, kMargin / 2),
-            ci::Color("black"),
-            cinder::Font("times", (float) kMargin / 8));
+            ci::Color("white"),
+            cinder::Font("times", (float) kMargin / 7));
 
 
     std::string turn = "It is ";
