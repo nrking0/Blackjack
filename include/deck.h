@@ -15,6 +15,7 @@ public:
     Card RemoveCard();
     const std::vector<Card>& GetCards() const;
     friend std::ostream& operator<<(std::ostream& os, Deck& deck);
+    friend bool operator!=(Deck& deck, Deck& other_deck);
 
 private:
     std::vector<Card> deck_;

@@ -39,9 +39,20 @@ std::ostream& operator<<(std::ostream& os, Deck& deck) {
     return os;
 }
 
-    const std::vector<Card> &Deck::GetCards() const {
-        return deck_;
+bool operator!=(Deck& deck, Deck& other_deck) {
+    for (int i = 0; i < deck.Size(); i++) {
+        Card card = deck.RemoveCard();
+        Card other_card = other_deck.RemoveCard();
+        if (!(card == other_card)) {
+            return true;
+        }
     }
+    return false;
+}
+
+const std::vector<Card> &Deck::GetCards() const {
+    return deck_;
+}
 
 } // namespace blackjack
 
