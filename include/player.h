@@ -15,6 +15,7 @@ public:
     int GetScore() const;
     void DealCard(Card card);
     void ClearHand();
+    void ClearWins();
     std::string GetName() const;
     bool GetHasPlayed() const;
     void SetHasPlayed(bool has_played);

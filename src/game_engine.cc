@@ -144,8 +144,12 @@ void GameEngine::keyDown(ci::app::KeyEvent event) {
                         }
                     }
                     break;
+                case ci::app::KeyEvent::KEY_n:
+                    NewGame();
+                    break;
                 case ci::app::KeyEvent::KEY_q:
                     Reset();
+                    break;
             }
             Update();
             break;
@@ -162,6 +166,7 @@ void GameEngine::keyDown(ci::app::KeyEvent event) {
                     Reset();
                     break;
                 case ci::app::KeyEvent::KEY_n:
+                    NewGame();
                     break;
             }
             break;
@@ -184,11 +189,28 @@ void GameEngine::Reset() {
     players_.clear();
     deck = Deck();
     deck.Shuffle();
+    dealer_.ClearWins();
     dealer_.ClearHand();
     dealer_.DealCard(deck.RemoveCard());
     dealer_.DealCard(deck.RemoveCard());
     current_turn_ = Turn::HOME_SCREEN;
     current_winner_ = "";
+}
+
+void GameEngine::NewGame() {
+    deck = Deck();
+    deck.Shuffle();
+    dealer_.ClearHand();
+    dealer_.DealCard(deck.RemoveCard());
+    dealer_.DealCard(deck.RemoveCard());
+    for (Player& player : players_) {
+        player.SetHasPlayed(false);
+        player.ClearHand();
+        player.DealCard(deck.RemoveCard());
+        player.DealCard(deck.RemoveCard());
+    }
+    current_winner_ = "";
+    current_turn_ = Turn::PLAYERS_TURN;
 }
 
 std::string GameEngine::CalculateWinner() {
@@ -222,9 +244,9 @@ std::string GameEngine::CalculateWinner() {
         return winners[0].GetName() + " won!";
     } else if (winners.size() > 1) {
         std::string winners_names;
-        winners_names += winners[0].GetName() + " ";
+        winners_names += winners[0].GetName();
         for (int i = 1; i < winners.size(); i++) {
-            winners_names += "and " + winners[i].GetName();
+            winners_names += " and " + winners[i].GetName();
         }
         winners_names += " won!";
         return winners_names;

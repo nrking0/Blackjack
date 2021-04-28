@@ -62,4 +62,8 @@ int Player::GetWinCount() const {
     return win_count;
 }
 
+void Player::ClearWins() {
+    win_count = 0;
+}
+
 } // namespace blackjack

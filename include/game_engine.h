@@ -41,6 +41,7 @@ private:
     void Reset();
     void DrawGameBoard(Turn turn);
     std::string CalculateWinner();
+    void NewGame();
 
 
 
