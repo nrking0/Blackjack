@@ -32,6 +32,7 @@ TEST_CASE("Remove Card") {
     }
 }
 
+// TODO: check deck equality
 TEST_CASE("Test Shuffle") {
     Deck deck = Deck();
     deck.Shuffle();
