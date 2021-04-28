@@ -38,11 +38,11 @@ void GameEngine::draw() {
                     ci::Color("black"), cinder::Font("times", (float) kMargin / 5));
             break;
         case Turn::PLAYERS_TURN: {
-            DrawGameBoard(false);
+            DrawGameBoard(Turn::PLAYERS_TURN);
             break;
         }
         case Turn::DEALERS_TURN:
-            DrawGameBoard(true);
+            DrawGameBoard(Turn::DEALERS_TURN);
             break;
         case Turn::GAME_FINISHED:
             break;
@@ -154,6 +154,13 @@ void GameEngine::keyDown(ci::app::KeyEvent event) {
             }
             break;
         case Turn::GAME_FINISHED:
+            switch (event.getCode()) {
+                case ci::app::KeyEvent::KEY_q:
+                    Reset();
+                    break;
+                case ci::app::KeyEvent::KEY_n:
+                    break;
+            }
             break;
     }
 }
@@ -180,7 +187,7 @@ void GameEngine::Reset() {
     current_turn_ = Turn::HOME_SCREEN;
 }
 
-void GameEngine::DrawGameBoard(bool is_dealers_turn) {
+void GameEngine::DrawGameBoard(Turn turn) {
     for (int i = 0; i < num_players_; i++) {
 
         int card_margin_factor = -1 * players_[i].GetHand().size() / 2;
@@ -226,7 +233,7 @@ void GameEngine::DrawGameBoard(bool is_dealers_turn) {
 
     for (Card card : dealer_.GetHand()) {
         ci::gl::Texture2dRef tex;
-        if (card_num != 0 && !is_dealers_turn) {
+        if (card_num != 0 && turn == Turn::DEALERS_TURN) {
             tex = ci::gl::Texture2d::create(
                     loadImage(ci::app::loadAsset("gray_back.png")));
         } else {
@@ -249,7 +256,7 @@ void GameEngine::DrawGameBoard(bool is_dealers_turn) {
     }
 
     std::string name = dealer_.GetName();
-    if (is_dealers_turn) {
+    if (turn == Turn::DEALERS_TURN) {
         name += ": " + std::to_string(dealer_.GetScore());
     }
     ci::gl::drawStringCentered(
@@ -259,21 +266,21 @@ void GameEngine::DrawGameBoard(bool is_dealers_turn) {
             cinder::Font("times", (float) kMargin / 7));
 
 
-    std::string turn = "It is ";
+    std::string turn_string = "It is ";
     for (Player &player : players_) {
         if (player.GetHasPlayed()) {
             continue;
         } else {
-            turn += player.GetName();
+            turn_string += player.GetName();
             break;
         }
     }
-    if (is_dealers_turn) {
-        turn += "the Dealer";
+    if (turn == Turn::DEALERS_TURN) {
+        turn_string += "the Dealer";
     }
-    turn += "'s turn.";
+    turn_string += "'s turn.";
     ci::gl::drawStringCentered(
-            turn,
+            turn_string,
             glm::vec2(kWindowSize /2, kWindowSize/2 - kMargin / 2),
             ci::Color("white"),
             cinder::Font("times", (float) kMargin / 6));
@@ -299,6 +306,28 @@ void GameEngine::DrawGameBoard(bool is_dealers_turn) {
                                    ci::Color("white"),
                                    cinder::Font("times", (float) kMargin / 6));
     }
+
+
+    ci::gl::drawStringCentered("Game Instructions",
+                               glm::vec2(kMargin, (kCardMargin/3) * 2),
+                               ci::Color("white"),
+                               cinder::Font("times", (float) kMargin / 5));
+    ci::gl::drawStringCentered("Press H to hit",
+                               glm::vec2(kMargin, kMargin/5 + kCardMargin),
+                               ci::Color("white"),
+                               cinder::Font("times", (float) kMargin / 6));
+    ci::gl::drawStringCentered("Press S to stay",
+                               glm::vec2(kMargin, 2 * kMargin/5 + kCardMargin),
+                               ci::Color("white"),
+                               cinder::Font("times", (float) kMargin / 6));
+    ci::gl::drawStringCentered("Press N to play again",
+                               glm::vec2(kMargin, 3 * kMargin/5 + kCardMargin),
+                               ci::Color("white"),
+                               cinder::Font("times", (float) kMargin / 6));
+    ci::gl::drawStringCentered("Press Q to quit",
+                               glm::vec2(kMargin, 4 * kMargin/5 + kCardMargin),
+                               ci::Color("white"),
+                               cinder::Font("times", (float) kMargin / 6));
 }
 
 } // namespace blackjack

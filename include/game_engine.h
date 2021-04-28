@@ -38,7 +38,7 @@ private:
     Player dealer_ = Player("Dealer");
     void AddPlayers(int num_players);
     void Reset();
-    void DrawGameBoard(bool is_dealers_turn);
+    void DrawGameBoard(Turn turn);
 
 
 };
