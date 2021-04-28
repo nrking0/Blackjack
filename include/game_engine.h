@@ -36,9 +36,12 @@ private:
     Turn current_turn_;
     std::vector<Player> players_;
     Player dealer_ = Player("Dealer");
+    std::string current_winner_;
     void AddPlayers(int num_players);
     void Reset();
     void DrawGameBoard(Turn turn);
+    std::string CalculateWinner();
+
 
 
 };

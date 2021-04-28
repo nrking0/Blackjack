@@ -11,6 +11,7 @@ GameEngine::GameEngine() {
     deck.Shuffle();
     dealer_.DealCard(deck.RemoveCard());
     dealer_.DealCard(deck.RemoveCard());
+    current_winner_ = "";
 
     ci::app::setWindowSize((int) kWindowSize, (int) kWindowSize);
 }
@@ -45,6 +46,7 @@ void GameEngine::draw() {
             DrawGameBoard(Turn::DEALERS_TURN);
             break;
         case Turn::GAME_FINISHED:
+            DrawGameBoard(Turn::GAME_FINISHED);
             break;
     }
 }
@@ -82,10 +84,11 @@ void GameEngine::Update() {
             while (dealer_.GetScore() < 17) {
                 dealer_.DealCard(deck.RemoveCard());
             }
-//            current_turn_ = Turn::GAME_FINISHED;
-//            Update();
+            current_turn_ = Turn::GAME_FINISHED;
+            Update();
             break;
         case Turn::GAME_FINISHED:
+            current_winner_ = CalculateWinner();
             break;
     }
 }
@@ -185,6 +188,49 @@ void GameEngine::Reset() {
     dealer_.DealCard(deck.RemoveCard());
     dealer_.DealCard(deck.RemoveCard());
     current_turn_ = Turn::HOME_SCREEN;
+    current_winner_ = "";
+}
+
+std::string GameEngine::CalculateWinner() {
+    int winning_score = -1;
+
+    for (const Player& player : players_) {
+        if (player.GetScore() > winning_score && player.GetScore() <= 21) {
+            winning_score = player.GetScore();
+        }
+    }
+
+    if (dealer_.GetScore() > winning_score && dealer_.GetScore() <= 21) {
+        winning_score = dealer_.GetScore();
+    }
+
+    std::vector<Player> winners;
+
+    for (Player& player : players_) {
+        if (player.GetScore() == winning_score) {
+            winners.push_back(player);
+            player.AddWin();
+        }
+    }
+
+    if (dealer_.GetScore() == winning_score) {
+        winners.push_back(dealer_);
+        dealer_.AddWin();
+    }
+
+    if (winners.size() == 1) {
+        return winners[0].GetName() + " won!";
+    } else if (winners.size() > 1) {
+        std::string winners_names;
+        winners_names += winners[0].GetName() + " ";
+        for (int i = 1; i < winners.size(); i++) {
+            winners_names += "and " + winners[i].GetName();
+        }
+        winners_names += " won!";
+        return winners_names;
+    } else {
+        return dealer_.GetName() += " won!";
+    }
 }
 
 void GameEngine::DrawGameBoard(Turn turn) {
@@ -194,7 +240,7 @@ void GameEngine::DrawGameBoard(Turn turn) {
         int card_shift = 0;
 
         if (players_[i].GetHand().size() % 2 == 0) {
-            card_shift = kCardMargin / 2;
+            card_shift = (int)(kCardMargin / 2);
         }
 
         for (Card card : players_[i].GetHand()) {
@@ -233,7 +279,7 @@ void GameEngine::DrawGameBoard(Turn turn) {
 
     for (Card card : dealer_.GetHand()) {
         ci::gl::Texture2dRef tex;
-        if (card_num != 0 && turn == Turn::DEALERS_TURN) {
+        if (card_num != 0 && turn == Turn::PLAYERS_TURN) {
             tex = ci::gl::Texture2d::create(
                     loadImage(ci::app::loadAsset("gray_back.png")));
         } else {
@@ -256,7 +302,7 @@ void GameEngine::DrawGameBoard(Turn turn) {
     }
 
     std::string name = dealer_.GetName();
-    if (turn == Turn::DEALERS_TURN) {
+    if (turn != Turn::PLAYERS_TURN) {
         name += ": " + std::to_string(dealer_.GetScore());
     }
     ci::gl::drawStringCentered(
@@ -266,24 +312,33 @@ void GameEngine::DrawGameBoard(Turn turn) {
             cinder::Font("times", (float) kMargin / 7));
 
 
-    std::string turn_string = "It is ";
-    for (Player &player : players_) {
-        if (player.GetHasPlayed()) {
-            continue;
-        } else {
-            turn_string += player.GetName();
-            break;
+    if (turn == Turn::GAME_FINISHED) {
+        ci::gl::drawStringCentered(
+                current_winner_,
+                glm::vec2(kWindowSize /2, kWindowSize/2 - kMargin / 2),
+                ci::Color("white"),
+                cinder::Font("times", (float) kMargin / 6));
+    } else {
+        std::string turn_string = "It is ";
+        for (Player &player : players_) {
+            if (player.GetHasPlayed()) {
+                continue;
+            } else {
+                turn_string += player.GetName();
+                break;
+            }
         }
+        if (turn == Turn::DEALERS_TURN) {
+            turn_string += "the Dealer";
+        }
+        turn_string += "'s turn.";
+
+        ci::gl::drawStringCentered(
+                turn_string,
+                glm::vec2(kWindowSize /2, kWindowSize/2 - kMargin / 2),
+                ci::Color("white"),
+                cinder::Font("times", (float) kMargin / 6));
     }
-    if (turn == Turn::DEALERS_TURN) {
-        turn_string += "the Dealer";
-    }
-    turn_string += "'s turn.";
-    ci::gl::drawStringCentered(
-            turn_string,
-            glm::vec2(kWindowSize /2, kWindowSize/2 - kMargin / 2),
-            ci::Color("white"),
-            cinder::Font("times", (float) kMargin / 6));
 
 
     ci::gl::drawStringCentered("Win Scoreboard",
