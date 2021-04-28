@@ -7,6 +7,7 @@ namespace blackjack {
 Player::Player(std::string name) {
     name_ = std::move(name);
     has_played_ = false;
+    win_count = 0;
 }
 
 const std::vector<Card>& Player::GetHand() const {
@@ -51,6 +52,14 @@ int Player::GetScore() const {
 
 void Player::SetHasPlayed(bool has_played) {
     has_played_ = has_played;
+}
+
+void Player::AddWin() {
+    win_count++;
+}
+
+int Player::GetWinCount() const {
+    return win_count;
 }
 
 } // namespace blackjack

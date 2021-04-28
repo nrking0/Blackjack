@@ -18,11 +18,14 @@ public:
     std::string GetName() const;
     bool GetHasPlayed() const;
     void SetHasPlayed(bool has_played);
+    void AddWin();
+    int GetWinCount() const;
 
 private:
     std::string name_;
     std::vector<Card> hand_;
     bool has_played_;
+    int win_count;
 
 };
 

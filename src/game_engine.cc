@@ -277,6 +277,28 @@ void GameEngine::DrawGameBoard(bool is_dealers_turn) {
             glm::vec2(kWindowSize /2, kWindowSize/2 - kMargin / 2),
             ci::Color("white"),
             cinder::Font("times", (float) kMargin / 6));
+
+
+    ci::gl::drawStringCentered("Win Scoreboard",
+                               glm::vec2(kWindowSize - kMargin, (kCardMargin / 3) * 2),
+                               ci::Color("white"),
+                               cinder::Font("times", (float) kMargin / 5));
+
+    std::string dealer_score = "Dealer: " + std::to_string(dealer_.GetWinCount());
+    ci::gl::drawStringCentered(dealer_score,
+                               glm::vec2(kWindowSize - kMargin, kMargin/5 + kCardMargin),
+                               ci::Color("white"),
+                               cinder::Font("times", (float) kMargin / 6));
+
+    for (int i = 0; i < num_players_; i++) {
+        std::string score = "Player " + std::to_string(i + 1) + ": ";
+        score += std::to_string(players_[i].GetWinCount());
+
+        ci::gl::drawStringCentered(score,
+                                   glm::vec2(kWindowSize - kMargin, (i + 2) * kMargin / 5 + kCardMargin),
+                                   ci::Color("white"),
+                                   cinder::Font("times", (float) kMargin / 6));
+    }
 }
 
 } // namespace blackjack
