@@ -50,9 +50,14 @@ get_filename_component(APP_PATH "${CMAKE_CURRENT_SOURCE_DIR}/" ABSOLUTE)
 
 include("${CINDER_PATH}/proj/cmake/modules/cinderMakeApp.cmake")
 
-list(APPEND SOURCE_FILES    src/card.cc)
+list(APPEND SOURCE_FILES    src/card.cc
+                            src/deck.cc
+                            src/player.cc
+                            src/game_engine.cc)
 
-list(APPEND TEST_FILES tests/card_test.cc)
+list(APPEND TEST_FILES tests/card_test.cc
+                        tests/deck_test.cc
+                        tests/player_test.cc)
 
 ci_make_app(
         APP_NAME        blackjack
@@ -68,6 +73,9 @@ ci_make_app(
         INCLUDES        include
         LIBRARIES       catch2
 )
+
+add_executable(main apps/main.cpp ${SOURCE_FILES})
+target_include_directories(main PRIVATE include)
 
 if(MSVC)
     set_property(TARGET blackjack-test APPEND_STRING PROPERTY LINK_FLAGS " /SUBSYSTEM:CONSOLE")
