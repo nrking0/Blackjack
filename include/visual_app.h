@@ -8,11 +8,27 @@
 
 namespace blackjack {
 
+/**
+ * Cinder visual app class.
+ */
 class VisualApp : public ci::app::App  {
 
 public:
+    /**
+     * Basic setup constructor for GUI.
+     */
     VisualApp();
+
+    /**
+     * Override of cinder's draw method.
+     */
     void draw() override;
+
+    /**
+     * Key listener that updates game based on input.
+     *
+     * @param event the key that has been pressed
+     */
     void keyDown(ci::app::KeyEvent event) override;
 
 

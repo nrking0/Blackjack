@@ -109,7 +109,7 @@ void GameEngine::Update(ci::app::KeyEvent event) {
                 if (player.GetHasPlayed()) {
                     continue;
                 } else {
-                    if (player.GetScore() > 21) {
+                    if (player.CalculateScore() > 21) {
                         player.SetHasPlayed(true);
                     }
                     break;
@@ -128,7 +128,7 @@ void GameEngine::Update(ci::app::KeyEvent event) {
             }
             break; }
         case Turn::DEALERS_TURN:
-            while (dealer_.GetScore() < 17) {
+            while (dealer_.CalculateScore() < 17) {
                 dealer_.DealCard(deck.RemoveCard());
             }
             current_turn_ = Turn::GAME_FINISHED;
@@ -193,25 +193,25 @@ std::string GameEngine::CalculateWinner() {
     int winning_score = -1;
 
     for (const Player& player : players_) {
-        if (player.GetScore() > winning_score && player.GetScore() <= 21) {
-            winning_score = player.GetScore();
+        if (player.CalculateScore() > winning_score && player.CalculateScore() <= 21) {
+            winning_score = player.CalculateScore();
         }
     }
 
-    if (dealer_.GetScore() > winning_score && dealer_.GetScore() <= 21) {
-        winning_score = dealer_.GetScore();
+    if (dealer_.CalculateScore() > winning_score && dealer_.CalculateScore() <= 21) {
+        winning_score = dealer_.CalculateScore();
     }
 
     std::vector<Player> winners;
 
     for (Player& player : players_) {
-        if (player.GetScore() == winning_score) {
+        if (player.CalculateScore() == winning_score) {
             winners.push_back(player);
             player.AddWin();
         }
     }
 
-    if (dealer_.GetScore() == winning_score) {
+    if (dealer_.CalculateScore() == winning_score) {
         winners.push_back(dealer_);
         dealer_.AddWin();
     }
@@ -258,7 +258,7 @@ void GameEngine::DrawGameBoard(Turn turn) {
             card_margin_factor++;
         }
 
-        std::string name = players_[i].GetName() + ": " + std::to_string(players_[i].GetScore());
+        std::string name = players_[i].GetName() + ": " + std::to_string(players_[i].CalculateScore());
         ci::gl::drawStringCentered(
                 name,
                 glm::vec2(kWindowSize * ((1.0 + i) / (1 + num_players_)), kWindowSize - kMargin / 2),
@@ -301,7 +301,7 @@ void GameEngine::DrawGameBoard(Turn turn) {
 
     std::string name = dealer_.GetName();
     if (turn != Turn::PLAYERS_TURN) {
-        name += ": " + std::to_string(dealer_.GetScore());
+        name += ": " + std::to_string(dealer_.CalculateScore());
     }
     ci::gl::drawStringCentered(
             name,

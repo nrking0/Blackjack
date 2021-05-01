@@ -3,13 +3,15 @@
 
 #include "player.h"
 #include "cinder/app/App.h"
-#include "cinder/app/RendererGl.h"
 #include "cinder/gl/gl.h"
 #include "deck.h"
 
 
 namespace blackjack {
 
+/**
+ * Enum representing the current state of the game.
+ */
 enum class Turn {
     HOME_SCREEN,
     NUM_PLAYERS,
@@ -18,14 +20,28 @@ enum class Turn {
     GAME_FINISHED
 };
 
+/**
+ * Game engine class the runs the game and its rules.
+ */
 class GameEngine {
 
 public:
+    /**
+     * Basic set up constructor that sets up game, deck, dealer, and state.
+     */
     GameEngine();
 
+    /**
+     * Updates the game based on events that have happened.
+     *
+     * @param event a key that the player has pressed
+     */
     void Update(ci::app::KeyEvent event);
+
+    /**
+     * Draw method for the game engine.
+     */
     void draw();
-//    void keyDown(ci::app::KeyEvent event) override;
 
 private:
     const double kWindowSize = 750;
@@ -37,14 +53,37 @@ private:
     std::vector<Player> players_;
     Player dealer_ = Player("Dealer");
     std::string current_winner_;
+
+    /**
+     * Adds players to the game based on how many people are playing.
+     *
+     * @param num_players the number of players in the game
+     */
     void AddPlayers(int num_players);
+
+    /**
+     * Resets the game to the very beginning state.
+     */
     void Reset();
+
+    /**
+     * Draws the game board when it is in a state of active play.
+     *
+     * @param turn the current turn the game is in
+     */
     void DrawGameBoard(Turn turn);
+
+    /**
+     * Calculates the winner of the hand based on the current scores of the players.
+     *
+     * @return the player who won in string form
+     */
     std::string CalculateWinner();
+
+    /**
+     * Resets deck and hands so the current players can play another game while maintaining win count.
+     */
     void NewGame();
-
-
-
 };
 
 } // namespace blackjack

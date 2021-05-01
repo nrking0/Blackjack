@@ -30,7 +30,7 @@ std::string Player::GetName() const {
     return name_;
 }
 
-int Player::GetScore() const {
+int Player::CalculateScore() const {
     int score = 0;
     bool has_ace = false;
     for (Card card : hand_) {
