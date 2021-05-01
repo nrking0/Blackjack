@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/card.h
+ostream
+-
+
+/Users/nrking0/Code/cinder_0.9.2_mac/my-projects/final-project/apps/main.cpp
+iostream
+-
+../include/card.h
+/Users/nrking0/Code/cinder_0.9.2_mac/my-projects/final-project/include/card.h
+../include/deck.h
+/Users/nrking0/Code/cinder_0.9.2_mac/my-projects/final-project/include/deck.h
+
+/Users/nrking0/Code/cinder_0.9.2_mac/my-projects/final-project/include/card.h
+ostream
+-
+
+/Users/nrking0/Code/cinder_0.9.2_mac/my-projects/final-project/include/deck.h
+vector
+-
+card.h
+/Users/nrking0/Code/cinder_0.9.2_mac/my-projects/final-project/include/card.h
+
+/Users/nrking0/Code/cinder_0.9.2_mac/my-projects/final-project/src/card.cc
+card.h
+/Users/nrking0/Code/cinder_0.9.2_mac/my-projects/final-project/src/card.h
+

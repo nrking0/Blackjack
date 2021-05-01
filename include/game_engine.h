@@ -18,14 +18,14 @@ enum class Turn {
     GAME_FINISHED
 };
 
-class GameEngine : public ci::app::App {
+class GameEngine {
 
 public:
     GameEngine();
 
-    void Update();
-    void draw() override;
-    void keyDown(ci::app::KeyEvent event) override;
+    void Update(ci::app::KeyEvent event);
+    void draw();
+//    void keyDown(ci::app::KeyEvent event) override;
 
 private:
     const double kWindowSize = 750;

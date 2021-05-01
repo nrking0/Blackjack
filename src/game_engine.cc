@@ -12,13 +12,9 @@ GameEngine::GameEngine() {
     dealer_.DealCard(deck.RemoveCard());
     dealer_.DealCard(deck.RemoveCard());
     current_winner_ = "";
-
-    ci::app::setWindowSize((int) kWindowSize, (int) kWindowSize);
 }
 
 void GameEngine::draw() {
-    ci::Color8u background_color(30, 135, 70); // dark green
-    ci::gl::clear(background_color);
 
     switch (current_turn_) {
         case Turn::HOME_SCREEN:
@@ -51,49 +47,7 @@ void GameEngine::draw() {
     }
 }
 
-void GameEngine::Update() {
-    switch (current_turn_) {
-        case Turn::HOME_SCREEN:
-            break;
-        case Turn::NUM_PLAYERS:
-            break;
-        case Turn::PLAYERS_TURN: {
-            for (Player &player : players_) {
-                if (player.GetHasPlayed()) {
-                    continue;
-                } else {
-                    if (player.GetScore() > 21) {
-                        player.SetHasPlayed(true);
-                    }
-                    break;
-                }
-            }
-
-            bool all_played = true;
-            for (Player& player : players_) {
-                if (!player.GetHasPlayed()) {
-                    all_played = false;
-                }
-            }
-            if (all_played) {
-                current_turn_ = Turn::DEALERS_TURN;
-                Update();
-            }
-            break; }
-        case Turn::DEALERS_TURN:
-            while (dealer_.GetScore() < 17) {
-                dealer_.DealCard(deck.RemoveCard());
-            }
-            current_turn_ = Turn::GAME_FINISHED;
-            Update();
-            break;
-        case Turn::GAME_FINISHED:
-            current_winner_ = CalculateWinner();
-            break;
-    }
-}
-
-void GameEngine::keyDown(ci::app::KeyEvent event) {
+void GameEngine::Update(ci::app::KeyEvent event) {
     switch (current_turn_) {
         case Turn::HOME_SCREEN:
             if (event.getCode() == ci::app::KeyEvent::KEY_RETURN) {
@@ -122,7 +76,7 @@ void GameEngine::keyDown(ci::app::KeyEvent event) {
                     current_turn_ = Turn::HOME_SCREEN;
             }
             break;
-        case Turn::PLAYERS_TURN:
+        case Turn::PLAYERS_TURN: {
             switch (event.getCode()) {
                 case ci::app::KeyEvent::KEY_h:
                     for (Player &player : players_) {
@@ -151,16 +105,39 @@ void GameEngine::keyDown(ci::app::KeyEvent event) {
                     Reset();
                     break;
             }
-            Update();
-            break;
-        case Turn::DEALERS_TURN:
-            switch (event.getCode()) {
-                case ci::app::KeyEvent::KEY_q:
-                    Reset();
+
+            for (Player &player : players_) {
+                if (player.GetHasPlayed()) {
+                    continue;
+                } else {
+                    if (player.GetScore() > 21) {
+                        player.SetHasPlayed(true);
+                    }
                     break;
+                }
             }
+
+            bool all_played = true;
+            for (Player& player : players_) {
+                if (!player.GetHasPlayed()) {
+                    all_played = false;
+                }
+            }
+            if (all_played) {
+                current_turn_ = Turn::DEALERS_TURN;
+                Update(event);
+            }
+            break; }
+        case Turn::DEALERS_TURN:
+            while (dealer_.GetScore() < 17) {
+                dealer_.DealCard(deck.RemoveCard());
+            }
+            current_turn_ = Turn::GAME_FINISHED;
+            Update(event);
             break;
         case Turn::GAME_FINISHED:
+            if (current_winner_.empty()) current_winner_ = CalculateWinner();
+
             switch (event.getCode()) {
                 case ci::app::KeyEvent::KEY_q:
                     Reset();

@@ -53,7 +53,8 @@ include("${CINDER_PATH}/proj/cmake/modules/cinderMakeApp.cmake")
 list(APPEND SOURCE_FILES    src/card.cc
                             src/deck.cc
                             src/player.cc
-                            src/game_engine.cc)
+                            src/game_engine.cc
+                            src/visual_app.cc)
 
 list(APPEND TEST_FILES tests/card_test.cc
                         tests/deck_test.cc
