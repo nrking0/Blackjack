@@ -15,7 +15,6 @@ GameEngine::GameEngine() {
 }
 
 void GameEngine::draw() {
-
     switch (current_turn_) {
         case Turn::HOME_SCREEN:
             ci::gl::drawStringCentered(
