@@ -33,6 +33,10 @@ vector
 -
 card.h
 ../include/card.h
+cinder/gl/gl.h
+../include/cinder/gl/gl.h
+cinder/app/App.h
+../include/cinder/app/App.h
 
 ../include/visual_app.h
 cinder/app/App.h
@@ -8121,6 +8125,20 @@ detail/setup.hpp
 /Users/nrking0/Code/cinder_0.9.2_mac/include/glm/detail/setup.hpp
 detail/func_vector_relational.inl
 /Users/nrking0/Code/cinder_0.9.2_mac/include/glm/detail/func_vector_relational.inl
+
+/Users/nrking0/Code/cinder_0.9.2_mac/my-projects/final-project/apps/cinder_app_main.cc
+visual_app.h
+-
+
+/Users/nrking0/Code/cinder_0.9.2_mac/my-projects/final-project/src/game_engine.cc
+game_engine.h
+/Users/nrking0/Code/cinder_0.9.2_mac/my-projects/final-project/src/game_engine.h
+
+/Users/nrking0/Code/cinder_0.9.2_mac/my-projects/final-project/src/player.cc
+player.h
+/Users/nrking0/Code/cinder_0.9.2_mac/my-projects/final-project/src/player.h
+utility
+-
 
 /Users/nrking0/Code/cinder_0.9.2_mac/my-projects/final-project/src/visual_app.cc
 visual_app.h

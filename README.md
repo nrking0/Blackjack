@@ -27,7 +27,7 @@ An example of a game being played can be seen below:
 ![Blackjack gameplay image](assets/gameImage.png)
 
 ------
-#### Blackjack Rules
+### Blackjack Rules
 
 For a deeper explanation of the rules of Blackjack, you can visit [*this website*](https://bicyclecards.com/how-to-play/blackjack/).
 

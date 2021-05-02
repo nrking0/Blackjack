@@ -13,11 +13,11 @@ namespace blackjack {
  * Enum representing the current state of the game.
  */
 enum class Turn {
-    HOME_SCREEN,
-    NUM_PLAYERS,
-    PLAYERS_TURN,
-    DEALERS_TURN,
-    GAME_FINISHED
+    HOME_SCREEN = 0,
+    NUM_PLAYERS = 1,
+    PLAYERS_TURN = 2,
+    DEALERS_TURN = 3,
+    GAME_FINISHED = 4
 };
 
 /**

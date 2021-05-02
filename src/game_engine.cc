@@ -4,7 +4,6 @@
 namespace blackjack {
 
 GameEngine::GameEngine() {
-    dealer_ = Player("Dealer");
     current_turn_ = Turn::HOME_SCREEN;
     num_players_ = 0;
     deck = Deck();
@@ -173,82 +172,12 @@ void GameEngine::Stay() {
 }
 
 void GameEngine::Draw(Turn turn) {
+
     for (int i = 0; i < num_players_; i++) {
-
-        int card_margin_factor = -1 * players_[i].GetHand().size() / 2;
-        int card_shift = 0;
-
-        if (players_[i].GetHand().size() % 2 == 0) {
-            card_shift = (int)(kCardMargin / 2);
-        }
-
-        for (Card card : players_[i].GetHand()) {
-            ci::gl::Texture2dRef tex = ci::gl::Texture2d::create(
-                    loadImage(ci::app::loadAsset(card.GetImageURL())));
-
-            double card_height = 1.0 * tex->getHeight() / 6;
-            double card_width = 1.0 * tex->getWidth() / 6;
-
-            ci::Rectf drawRect((kWindowSize * ((1.0 + i) / (1 + num_players_))) - (card_width / 2) + (card_margin_factor * kCardMargin) - card_shift + kCardMargin,
-                               kWindowSize - (3 * kMargin),
-                               (kWindowSize * ((1.0 + i) / (1 + num_players_))) - (card_width / 2) + (card_margin_factor * kCardMargin) - card_shift + card_width + kCardMargin,
-                               kWindowSize - (3 * kMargin) + card_height);
-
-            ci::gl::draw(tex, drawRect);
-
-            card_margin_factor++;
-        }
-
-        std::string name = players_[i].GetName() + ": " + std::to_string(players_[i].CalculateScore());
-        ci::gl::drawStringCentered(
-                name,
-                glm::vec2(kWindowSize * ((1.0 + i) / (1 + num_players_)), kWindowSize - kMargin / 2),
-                ci::Color("white"),
-                cinder::Font("times", (float) kMargin / 7));
+        players_[i].Draw(i, num_players_);
     }
 
-
-    int card_margin_factor = -1 * dealer_.GetHand().size() / 2;
-    int card_shift = 0;
-    int card_num = 0;
-
-    if (dealer_.GetHand().size() % 2 == 0) {
-        card_shift = kCardMargin / 2;
-    }
-
-    for (Card card : dealer_.GetHand()) {
-        ci::gl::Texture2dRef tex;
-        if (card_num != 0 && turn == Turn::PLAYERS_TURN) {
-            tex = ci::gl::Texture2d::create(
-                    loadImage(ci::app::loadAsset("gray_back.png")));
-        } else {
-            tex = ci::gl::Texture2d::create(
-                    loadImage(ci::app::loadAsset(card.GetImageURL())));
-        }
-
-        double card_height = 1.0 * tex->getHeight() / 6;
-        double card_width = 1.0 * tex->getWidth() / 6;
-
-        ci::Rectf drawRect((kWindowSize / 2) - (card_width / 2) + (card_margin_factor * kCardMargin) - card_shift + kCardMargin,
-                           (kMargin),
-                           (kWindowSize / 2) - (card_width / 2) + (card_margin_factor * kCardMargin) - card_shift + card_width + kCardMargin,
-                           (kMargin) + card_height);
-
-        ci::gl::draw(tex, drawRect);
-
-        card_margin_factor++;
-        card_num++;
-    }
-
-    std::string name = dealer_.GetName();
-    if (turn != Turn::PLAYERS_TURN) {
-        name += ": " + std::to_string(dealer_.CalculateScore());
-    }
-    ci::gl::drawStringCentered(
-            name,
-            glm::vec2(kWindowSize / 2, kMargin / 2),
-            ci::Color("white"),
-            cinder::Font("times", (float) kMargin / 7));
+    dealer_.DrawDealer((int)turn);
 
 
     if (turn == Turn::GAME_FINISHED) {

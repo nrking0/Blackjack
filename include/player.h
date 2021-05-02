@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 #include "card.h"
+#include "cinder/gl/gl.h"
+#include "cinder/app/App.h"
 
 namespace blackjack {
 
@@ -49,6 +51,16 @@ public:
      */
     void AddWin();
 
+    /**
+     * Draws player in visual app.
+     */
+    void Draw(int player_index, int num_players) const;
+
+    /**
+     * Draws the dealer in the visual app.
+     */
+    void DrawDealer(int turn) const;
+
     const std::vector<Card>& GetHand() const;
     std::string GetName() const;
     void SetHasPlayed(bool has_played);
@@ -56,6 +68,9 @@ public:
     int GetWinCount() const;
 
 private:
+    const double kWindowSize = 750;
+    const double kMargin = 100;
+    const double kCardMargin = 25;
     std::string name_;
     std::vector<Card> hand_;
     bool has_played_;
