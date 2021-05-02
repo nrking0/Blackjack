@@ -10,7 +10,20 @@ This game is a C++ Graphical Application using the [**Cinder**](https://libcinde
 For the most part, the game is extremely explanatory and gives on screen instructions as to the controls and whose turn it is.
 This game is played by using keyboard input, and multiplayer mode is supported up to 4 players.
 
-An example of a current game can be seen below:
+### Controls
+
+These are the controls used while playing the game:
+
+| Key       | Action                               |
+|---------- |--------------------------------------|
+| `h`       | Hit                                  |
+| `s`       | Stay                                 |
+| `q`       | Quit game and return to home screen  |
+| `n`       | New Hand with same players           |
+
+
+
+An example of a game being played can be seen below:
 ![Blackjack gameplay image](assets/gameImage.png)
 
 ------
