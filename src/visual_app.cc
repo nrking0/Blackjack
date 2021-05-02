@@ -1,5 +1,4 @@
 #include "visual_app.h"
-#include <iostream>
 
 namespace blackjack {
 

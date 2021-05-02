@@ -441,6 +441,33 @@ tests/deck_test.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/blackjack-test.dir/build.make CMakeFiles/blackjack-test.dir/tests/deck_test.cc.s
 .PHONY : tests/deck_test.cc.s
 
+tests/game_engine_test.o: tests/game_engine_test.cc.o
+
+.PHONY : tests/game_engine_test.o
+
+# target to build an object file
+tests/game_engine_test.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blackjack-test.dir/build.make CMakeFiles/blackjack-test.dir/tests/game_engine_test.cc.o
+.PHONY : tests/game_engine_test.cc.o
+
+tests/game_engine_test.i: tests/game_engine_test.cc.i
+
+.PHONY : tests/game_engine_test.i
+
+# target to preprocess a source file
+tests/game_engine_test.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blackjack-test.dir/build.make CMakeFiles/blackjack-test.dir/tests/game_engine_test.cc.i
+.PHONY : tests/game_engine_test.cc.i
+
+tests/game_engine_test.s: tests/game_engine_test.cc.s
+
+.PHONY : tests/game_engine_test.s
+
+# target to generate assembly for a file
+tests/game_engine_test.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blackjack-test.dir/build.make CMakeFiles/blackjack-test.dir/tests/game_engine_test.cc.s
+.PHONY : tests/game_engine_test.cc.s
+
 tests/player_test.o: tests/player_test.cc.o
 
 .PHONY : tests/player_test.o
@@ -533,6 +560,9 @@ help:
 	@echo "... tests/deck_test.o"
 	@echo "... tests/deck_test.i"
 	@echo "... tests/deck_test.s"
+	@echo "... tests/game_engine_test.o"
+	@echo "... tests/game_engine_test.i"
+	@echo "... tests/game_engine_test.s"
 	@echo "... tests/player_test.o"
 	@echo "... tests/player_test.i"
 	@echo "... tests/player_test.s"

@@ -221,6 +221,9 @@
 		<Unit filename="/Users/nrking0/Code/cinder_0.9.2_mac/my-projects/final-project/tests/deck_test.cc">
 			<Option target="blackjack-test"/>
 		</Unit>
+		<Unit filename="/Users/nrking0/Code/cinder_0.9.2_mac/my-projects/final-project/tests/game_engine_test.cc">
+			<Option target="blackjack-test"/>
+		</Unit>
 		<Unit filename="/Users/nrking0/Code/cinder_0.9.2_mac/my-projects/final-project/tests/player_test.cc">
 			<Option target="blackjack-test"/>
 		</Unit>

@@ -6,6 +6,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/blackjack-test.dir/src/visual_app.cc.o"
   "CMakeFiles/blackjack-test.dir/tests/card_test.cc.o"
   "CMakeFiles/blackjack-test.dir/tests/deck_test.cc.o"
+  "CMakeFiles/blackjack-test.dir/tests/game_engine_test.cc.o"
   "CMakeFiles/blackjack-test.dir/tests/player_test.cc.o"
   "CMakeFiles/blackjack-test.dir/tests/test_main.cc.o"
   "Debug/blackjack-test/blackjack-test.app/Contents/MacOS/blackjack-test"
