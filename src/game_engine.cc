@@ -35,7 +35,7 @@ void GameEngine::Update() {
             }
 
             bool all_played = true;
-            for (Player& player : players_) {
+            for (Player &player : players_) {
                 if (!player.GetHasPlayed()) {
                     all_played = false;
                 }
@@ -44,7 +44,8 @@ void GameEngine::Update() {
                 current_turn_ = Turn::DEALERS_TURN;
                 Update();
             }
-            break; }
+            break;
+        }
         case Turn::DEALERS_TURN:
             while (dealer_.CalculateScore() < 17) {
                 dealer_.DealCard(deck.RemoveCard());
@@ -88,7 +89,7 @@ void GameEngine::NewGame() {
     dealer_.ClearHand();
     dealer_.DealCard(deck.RemoveCard());
     dealer_.DealCard(deck.RemoveCard());
-    for (Player& player : players_) {
+    for (Player &player : players_) {
         player.SetHasPlayed(false);
         player.ClearHand();
         player.DealCard(deck.RemoveCard());
@@ -101,7 +102,7 @@ void GameEngine::NewGame() {
 std::string GameEngine::CalculateWinner() {
     int winning_score = -1;
 
-    for (const Player& player : players_) {
+    for (const Player &player : players_) {
         if (player.CalculateScore() > winning_score && player.CalculateScore() <= 21) {
             winning_score = player.CalculateScore();
         }
@@ -113,7 +114,7 @@ std::string GameEngine::CalculateWinner() {
 
     std::vector<Player> winners;
 
-    for (Player& player : players_) {
+    for (Player &player : players_) {
         if (player.CalculateScore() == winning_score) {
             winners.push_back(player);
             player.AddWin();
@@ -177,13 +178,13 @@ void GameEngine::Draw(Turn turn) {
         players_[i].Draw(i, num_players_);
     }
 
-    dealer_.DrawDealer((int)turn);
+    dealer_.DrawDealer((int) turn);
 
 
     if (turn == Turn::GAME_FINISHED) {
         ci::gl::drawStringCentered(
                 current_winner_,
-                glm::vec2(kWindowSize /2, kWindowSize/2 - kMargin / 2),
+                glm::vec2(kWindowSize / 2, kWindowSize / 2 - kMargin / 2),
                 ci::Color("white"),
                 cinder::Font("times", (float) kMargin / 6));
     } else {
@@ -203,7 +204,7 @@ void GameEngine::Draw(Turn turn) {
 
         ci::gl::drawStringCentered(
                 turn_string,
-                glm::vec2(kWindowSize /2, kWindowSize/2 - kMargin / 2),
+                glm::vec2(kWindowSize / 2, kWindowSize / 2 - kMargin / 2),
                 ci::Color("white"),
                 cinder::Font("times", (float) kMargin / 6));
     }
@@ -216,7 +217,7 @@ void GameEngine::Draw(Turn turn) {
 
     std::string dealer_score = "Dealer: " + std::to_string(dealer_.GetWinCount());
     ci::gl::drawStringCentered(dealer_score,
-                               glm::vec2(kWindowSize - kMargin, kMargin/5 + kCardMargin),
+                               glm::vec2(kWindowSize - kMargin, kMargin / 5 + kCardMargin),
                                ci::Color("white"),
                                cinder::Font("times", (float) kMargin / 6));
 
@@ -232,23 +233,23 @@ void GameEngine::Draw(Turn turn) {
 
 
     ci::gl::drawStringCentered("Game Instructions",
-                               glm::vec2(kMargin, (kCardMargin/3) * 2),
+                               glm::vec2(kMargin, (kCardMargin / 3) * 2),
                                ci::Color("white"),
                                cinder::Font("times", (float) kMargin / 5));
     ci::gl::drawStringCentered("Press H to hit",
-                               glm::vec2(kMargin, kMargin/5 + kCardMargin),
+                               glm::vec2(kMargin, kMargin / 5 + kCardMargin),
                                ci::Color("white"),
                                cinder::Font("times", (float) kMargin / 6));
     ci::gl::drawStringCentered("Press S to stay",
-                               glm::vec2(kMargin, 2 * kMargin/5 + kCardMargin),
+                               glm::vec2(kMargin, 2 * kMargin / 5 + kCardMargin),
                                ci::Color("white"),
                                cinder::Font("times", (float) kMargin / 6));
     ci::gl::drawStringCentered("Press N to play again",
-                               glm::vec2(kMargin, 3 * kMargin/5 + kCardMargin),
+                               glm::vec2(kMargin, 3 * kMargin / 5 + kCardMargin),
                                ci::Color("white"),
                                cinder::Font("times", (float) kMargin / 6));
     ci::gl::drawStringCentered("Press Q to quit",
-                               glm::vec2(kMargin, 4 * kMargin/5 + kCardMargin),
+                               glm::vec2(kMargin, 4 * kMargin / 5 + kCardMargin),
                                ci::Color("white"),
                                cinder::Font("times", (float) kMargin / 6));
 }

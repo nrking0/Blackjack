@@ -10,7 +10,7 @@ Player::Player(std::string name) {
     win_count = 0;
 }
 
-const std::vector<Card>& Player::GetHand() const {
+const std::vector<Card> &Player::GetHand() const {
     return hand_;
 }
 
@@ -37,7 +37,7 @@ int Player::CalculateScore() const {
         if ((int) card.GetRank() > 10) {
             score += 10;
         } else {
-            if ((int)card.GetRank() == 1) {
+            if ((int) card.GetRank() == 1) {
                 has_ace = true;
             }
             score += (int) card.GetRank();
@@ -71,7 +71,7 @@ void Player::Draw(int player_index, int num_players) const {
     int card_shift = 0;
 
     if (this->GetHand().size() % 2 == 0) {
-        card_shift = (int)(kCardMargin / 2);
+        card_shift = (int) (kCardMargin / 2);
     }
 
     for (Card card : this->GetHand()) {
@@ -81,9 +81,11 @@ void Player::Draw(int player_index, int num_players) const {
         double card_height = 1.0 * tex->getHeight() / 6;
         double card_width = 1.0 * tex->getWidth() / 6;
 
-        ci::Rectf drawRect((kWindowSize * ((1.0 + player_index) / (1 + num_players))) - (card_width / 2) + (card_margin_factor * kCardMargin) - card_shift + kCardMargin,
+        ci::Rectf drawRect((kWindowSize * ((1.0 + player_index) / (1 + num_players))) - (card_width / 2) +
+                           (card_margin_factor * kCardMargin) - card_shift + kCardMargin,
                            kWindowSize - (3 * kMargin),
-                           (kWindowSize * ((1.0 + player_index) / (1 + num_players))) - (card_width / 2) + (card_margin_factor * kCardMargin) - card_shift + card_width + kCardMargin,
+                           (kWindowSize * ((1.0 + player_index) / (1 + num_players))) - (card_width / 2) +
+                           (card_margin_factor * kCardMargin) - card_shift + card_width + kCardMargin,
                            kWindowSize - (3 * kMargin) + card_height);
 
         ci::gl::draw(tex, drawRect);
@@ -121,9 +123,11 @@ void Player::DrawDealer(int turn) const {
         double card_height = 1.0 * tex->getHeight() / 6;
         double card_width = 1.0 * tex->getWidth() / 6;
 
-        ci::Rectf drawRect((kWindowSize / 2) - (card_width / 2) + (card_margin_factor * kCardMargin) - card_shift + kCardMargin,
+        ci::Rectf drawRect((kWindowSize / 2) - (card_width / 2) + (card_margin_factor * kCardMargin) - card_shift +
+                           kCardMargin,
                            (kMargin),
-                           (kWindowSize / 2) - (card_width / 2) + (card_margin_factor * kCardMargin) - card_shift + card_width + kCardMargin,
+                           (kWindowSize / 2) - (card_width / 2) + (card_margin_factor * kCardMargin) - card_shift +
+                           card_width + kCardMargin,
                            (kMargin) + card_height);
 
         ci::gl::draw(tex, drawRect);
