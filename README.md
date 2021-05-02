@@ -10,6 +10,9 @@ This game is a C++ Graphical Application using the [**Cinder**](https://libcinde
 For the most part, the game is extremely explanatory and gives on screen instructions as to the controls and whose turn it is.
 This game is played by using keyboard input, and multiplayer mode is supported up to 4 players.
 
+An example of a current game can be seen below:
+![Blackjack gameplay image](assets/gameImage.png)
+
 ------
 #### Blackjack Rules
 
