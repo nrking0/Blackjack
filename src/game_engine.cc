@@ -14,38 +14,6 @@ GameEngine::GameEngine() {
     current_winner_ = "";
 }
 
-void GameEngine::draw() {
-    switch (current_turn_) {
-        case Turn::HOME_SCREEN:
-            ci::gl::drawStringCentered(
-                    "Welcome to Blackjack",
-                    glm::vec2(kWindowSize / 2, kWindowSize / 2),
-                    ci::Color("black"),
-                    cinder::Font("times", (float) kWindowSize / 10));
-            ci::gl::drawStringCentered(
-                    "Press Enter to Play",
-                    glm::vec2(kWindowSize / 2, (kWindowSize / 2) + kMargin),
-                    ci::Color("black"), cinder::Font("times", (float) kMargin / 8));
-            break;
-        case Turn::NUM_PLAYERS:
-            ci::gl::drawStringCentered(
-                    "Please select the number of players (1 through 4)",
-                    glm::vec2(kWindowSize / 2, (kWindowSize / 2)),
-                    ci::Color("black"), cinder::Font("times", (float) kMargin / 5));
-            break;
-        case Turn::PLAYERS_TURN: {
-            DrawGameBoard(Turn::PLAYERS_TURN);
-            break;
-        }
-        case Turn::DEALERS_TURN:
-            DrawGameBoard(Turn::DEALERS_TURN);
-            break;
-        case Turn::GAME_FINISHED:
-            DrawGameBoard(Turn::GAME_FINISHED);
-            break;
-    }
-}
-
 void GameEngine::Update(ci::app::KeyEvent event) {
     switch (current_turn_) {
         case Turn::HOME_SCREEN:
@@ -227,11 +195,16 @@ std::string GameEngine::CalculateWinner() {
         winners_names += " won!";
         return winners_names;
     } else {
+        dealer_.AddWin();
         return dealer_.GetName() += " won!";
     }
 }
 
-void GameEngine::DrawGameBoard(Turn turn) {
+Turn GameEngine::GetCurrentState() const {
+    return current_turn_;
+}
+
+void GameEngine::Draw(Turn turn) {
     for (int i = 0; i < num_players_; i++) {
 
         int card_margin_factor = -1 * players_[i].GetHand().size() / 2;

@@ -39,9 +39,13 @@ public:
     void Update(ci::app::KeyEvent event);
 
     /**
-     * Draw method for the game engine.
+     * Draws the game board when it is in a state of active play.
+     *
+     * @param turn the current turn the game is in
      */
-    void draw();
+    void Draw(Turn turn);
+
+    Turn GetCurrentState() const;
 
 private:
     const double kWindowSize = 750;
@@ -65,13 +69,6 @@ private:
      * Resets the game to the very beginning state.
      */
     void Reset();
-
-    /**
-     * Draws the game board when it is in a state of active play.
-     *
-     * @param turn the current turn the game is in
-     */
-    void DrawGameBoard(Turn turn);
 
     /**
      * Calculates the winner of the hand based on the current scores of the players.
