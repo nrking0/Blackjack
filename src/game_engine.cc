@@ -14,65 +14,16 @@ GameEngine::GameEngine() {
     current_winner_ = "";
 }
 
-void GameEngine::Update(ci::app::KeyEvent event) {
+void GameEngine::Update() {
     switch (current_turn_) {
         case Turn::HOME_SCREEN:
-            if (event.getCode() == ci::app::KeyEvent::KEY_RETURN) {
-                current_turn_ = Turn::NUM_PLAYERS;
-            }
+            current_turn_ = Turn::NUM_PLAYERS;
             break;
         case Turn::NUM_PLAYERS:
-            switch (event.getCode()) {
-                case ci::app::KeyEvent::KEY_1:
-                    AddPlayers(1);
-                    current_turn_ = Turn::PLAYERS_TURN;
-                    break;
-                case ci::app::KeyEvent::KEY_2:
-                    AddPlayers(2);
-                    current_turn_ = Turn::PLAYERS_TURN;
-                    break;
-                case ci::app::KeyEvent::KEY_3:
-                    AddPlayers(3);
-                    current_turn_ = Turn::PLAYERS_TURN;
-                    break;
-                case ci::app::KeyEvent::KEY_4:
-                    AddPlayers(4);
-                    current_turn_ = Turn::PLAYERS_TURN;
-                    break;
-                case ci::app::KeyEvent::KEY_q:
-                    current_turn_ = Turn::HOME_SCREEN;
-            }
+            AddPlayers(num_players_);
+            current_turn_ = Turn::PLAYERS_TURN;
             break;
         case Turn::PLAYERS_TURN: {
-            switch (event.getCode()) {
-                case ci::app::KeyEvent::KEY_h:
-                    for (Player &player : players_) {
-                        if (player.GetHasPlayed()) {
-                            continue;
-                        } else {
-                            player.DealCard(deck.RemoveCard());
-                            break;
-                        }
-                    }
-                    break;
-                case ci::app::KeyEvent::KEY_s:
-                    for (Player &player : players_) {
-                        if (player.GetHasPlayed()) {
-                            continue;
-                        } else {
-                            player.SetHasPlayed(true);
-                            break;
-                        }
-                    }
-                    break;
-                case ci::app::KeyEvent::KEY_n:
-                    NewGame();
-                    break;
-                case ci::app::KeyEvent::KEY_q:
-                    Reset();
-                    break;
-            }
-
             for (Player &player : players_) {
                 if (player.GetHasPlayed()) {
                     continue;
@@ -92,7 +43,7 @@ void GameEngine::Update(ci::app::KeyEvent event) {
             }
             if (all_played) {
                 current_turn_ = Turn::DEALERS_TURN;
-                Update(event);
+                Update();
             }
             break; }
         case Turn::DEALERS_TURN:
@@ -100,19 +51,10 @@ void GameEngine::Update(ci::app::KeyEvent event) {
                 dealer_.DealCard(deck.RemoveCard());
             }
             current_turn_ = Turn::GAME_FINISHED;
-            Update(event);
+            Update();
             break;
         case Turn::GAME_FINISHED:
-            if (current_winner_.empty()) current_winner_ = CalculateWinner();
-
-            switch (event.getCode()) {
-                case ci::app::KeyEvent::KEY_q:
-                    Reset();
-                    break;
-                case ci::app::KeyEvent::KEY_n:
-                    NewGame();
-                    break;
-            }
+            current_winner_ = CalculateWinner();
             break;
     }
 }
@@ -202,6 +144,32 @@ std::string GameEngine::CalculateWinner() {
 
 Turn GameEngine::GetCurrentState() const {
     return current_turn_;
+}
+
+void GameEngine::SetPlayerNumber(int num_players) {
+    num_players_ = num_players;
+}
+
+void GameEngine::Hit() {
+    for (Player &player : players_) {
+        if (player.GetHasPlayed()) {
+            continue;
+        } else {
+            player.DealCard(deck.RemoveCard());
+            break;
+        }
+    }
+}
+
+void GameEngine::Stay() {
+    for (Player &player : players_) {
+        if (player.GetHasPlayed()) {
+            continue;
+        } else {
+            player.SetHasPlayed(true);
+            break;
+        }
+    }
 }
 
 void GameEngine::Draw(Turn turn) {

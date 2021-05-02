@@ -2,8 +2,8 @@
 #define BLACKJACK_GAME_ENGINE_H
 
 #include "player.h"
-#include "cinder/app/App.h"
 #include "cinder/gl/gl.h"
+#include "cinder/app/App.h"
 #include "deck.h"
 
 
@@ -36,7 +36,7 @@ public:
      *
      * @param event a key that the player has pressed
      */
-    void Update(ci::app::KeyEvent event);
+    void Update();
 
     /**
      * Draws the game board when it is in a state of active play.
@@ -45,7 +45,28 @@ public:
      */
     void Draw(Turn turn);
 
+    /**
+     * Resets the game to the very beginning state.
+     */
+    void Reset();
+
+    /**
+    * Resets deck and hands so the current players can play another game while maintaining win count.
+    */
+    void NewGame();
+
+    /**
+     * Makes current player hit.
+     */
+    void Hit();
+
+    /**
+     * Makes current player stay.
+     */
+    void Stay();
+
     Turn GetCurrentState() const;
+    void SetPlayerNumber(int num_players);
 
 private:
     const double kWindowSize = 750;
@@ -66,21 +87,11 @@ private:
     void AddPlayers(int num_players);
 
     /**
-     * Resets the game to the very beginning state.
-     */
-    void Reset();
-
-    /**
      * Calculates the winner of the hand based on the current scores of the players.
      *
      * @return the player who won in string form
      */
     std::string CalculateWinner();
-
-    /**
-     * Resets deck and hands so the current players can play another game while maintaining win count.
-     */
-    void NewGame();
 };
 
 } // namespace blackjack

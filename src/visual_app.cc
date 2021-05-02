@@ -1,4 +1,5 @@
 #include "visual_app.h"
+#include <iostream>
 
 namespace blackjack {
 
@@ -42,7 +43,56 @@ void VisualApp::draw() {
 }
 
 void VisualApp::keyDown(ci::app::KeyEvent event) {
-    game_engine.Update(event);
+    switch (game_engine.GetCurrentState()) {
+        case Turn::HOME_SCREEN:
+            if (event.getCode() == ci::app::KeyEvent::KEY_RETURN) {
+                game_engine.Update();
+            }
+            break;
+        case Turn::NUM_PLAYERS:
+            if ((int) event.getCode() >= (int)'1' && (int) event.getCode() <= (int)'4') {
+                game_engine.SetPlayerNumber((int)event.getCode() - (int)'0');
+                game_engine.Update();
+            } else if (event.getCode() == ci::app::KeyEvent::KEY_q) {
+                    game_engine.Reset();
+            }
+            break;
+        case Turn::PLAYERS_TURN:
+            switch (event.getCode()) {
+                case ci::app::KeyEvent::KEY_h:
+                    game_engine.Hit();
+                    game_engine.Update();
+                    break;
+                case ci::app::KeyEvent::KEY_s:
+                    game_engine.Stay();
+                    game_engine.Update();
+                    break;
+                case ci::app::KeyEvent::KEY_n:
+                    game_engine.NewGame();
+                    game_engine.Update();
+                    break;
+                case ci::app::KeyEvent::KEY_q:
+                    game_engine.Reset();
+                    break;
+            }
+            break;
+        case Turn::DEALERS_TURN:
+            switch (event.getCode()) {
+                case ci::app::KeyEvent::KEY_q:
+                    game_engine.Reset();
+            }
+            break;
+        case Turn::GAME_FINISHED:
+            switch (event.getCode()) {
+                case ci::app::KeyEvent::KEY_q:
+                    game_engine.Reset();
+                    break;
+                case ci::app::KeyEvent::KEY_n:
+                    game_engine.NewGame();
+                    break;
+            }
+            break;
+    }
 }
 
 } // namespace blackjack
