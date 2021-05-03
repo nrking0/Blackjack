@@ -40,6 +40,7 @@ std::ostream& operator<<(std::ostream& os, Deck& deck) {
 }
 
 bool operator!=(Deck& deck, Deck& other_deck) {
+    // Checking to make sure the deck is not the exact same as the other_deck
     for (int i = 0; i < deck.Size(); i++) {
         Card card = deck.RemoveCard();
         Card other_card = other_deck.RemoveCard();

@@ -15,13 +15,14 @@ GameEngine::GameEngine() {
 
 void GameEngine::Draw(Turn turn) {
 
+    // Drawing each player and then dealer
     for (int i = 0; i < num_players_; i++) {
         players_[i].Draw(i, num_players_);
     }
 
     dealer_.DrawDealer((int) turn);
 
-
+    // Drawing the center of game which states either whose turn it is, or the winner of the hand
     if (turn == Turn::GAME_FINISHED) {
         ci::gl::drawStringCentered(
                 current_winner_,
@@ -50,7 +51,7 @@ void GameEngine::Draw(Turn turn) {
                 cinder::Font("times", (float) kMargin / 6));
     }
 
-
+    // Drawing a win scoreboard in the top right of screen
     ci::gl::drawStringCentered("Win Scoreboard",
                                glm::vec2(kWindowSize - kMargin, (kCardMargin / 3) * 2),
                                ci::Color("white"),
@@ -72,7 +73,7 @@ void GameEngine::Draw(Turn turn) {
                                    cinder::Font("times", (float) kMargin / 6));
     }
 
-
+    // Drawing list of instructors for input on top left of screen
     ci::gl::drawStringCentered("Game Instructions",
                                glm::vec2(kMargin, (kCardMargin / 3) * 2),
                                ci::Color("white"),
@@ -105,6 +106,7 @@ void GameEngine::Update() {
             current_turn_ = Turn::PLAYERS_TURN;
             break;
         case Turn::PLAYERS_TURN: {
+            // Checking to see if player bust and moving to next player's turn if so
             for (Player &player : players_) {
                 if (player.GetHasPlayed()) {
                     continue;
@@ -116,6 +118,7 @@ void GameEngine::Update() {
                 }
             }
 
+            // Seeing if all players have played and moving to dealer's turn if so
             bool all_played = true;
             for (Player &player : players_) {
                 if (!player.GetHasPlayed()) {
@@ -129,6 +132,7 @@ void GameEngine::Update() {
             break;
         }
         case Turn::DEALERS_TURN:
+            // Hitting until dealer's score is at or above 17, then moving on to next state
             while (dealer_.CalculateScore() < 17) {
                 dealer_.DealCard(deck.RemoveCard());
             }
@@ -184,6 +188,7 @@ void GameEngine::NewGame() {
 std::string GameEngine::CalculateWinner() {
     int winning_score = -1;
 
+    // Setting highest score at or below 21
     for (const Player &player : players_) {
         if (player.CalculateScore() > winning_score && player.CalculateScore() <= 21) {
             winning_score = player.CalculateScore();
@@ -196,6 +201,7 @@ std::string GameEngine::CalculateWinner() {
 
     std::vector<Player> winners;
 
+    // Adding all players with winning score to winners
     for (Player &player : players_) {
         if (player.CalculateScore() == winning_score) {
             winners.push_back(player);
@@ -208,6 +214,7 @@ std::string GameEngine::CalculateWinner() {
         dealer_.AddWin();
     }
 
+    // Listing winner/winners and adding wins to player's counts, if no winners dealer automatically wins
     if (winners.size() == 1) {
         return winners[0].GetName() + " won!";
     } else if (winners.size() > 1) {

@@ -24,7 +24,7 @@ void VisualApp::draw() {
             break;
         case Turn::NUM_PLAYERS:
             ci::gl::drawStringCentered(
-                    "Please select the number of players (1 through 4)",
+                    "Please select the number of players (1 through 3)",
                     glm::vec2(kWindowSize / 2, (kWindowSize / 2)),
                     ci::Color("black"), cinder::Font("times", (float) kMargin / 5));
             break;
@@ -49,7 +49,8 @@ void VisualApp::keyDown(ci::app::KeyEvent event) {
             }
             break;
         case Turn::NUM_PLAYERS:
-            if ((int) event.getCode() >= (int)'1' && (int) event.getCode() <= (int)'4') {
+            // Checking to see if user input 1, 2, or 3 and setting player number if so
+            if ((int) event.getCode() >= (int)'1' && (int) event.getCode() <= (int)'3') {
                 game_engine.SetPlayerNumber((int)event.getCode() - (int)'0');
                 game_engine.Update();
             } else if (event.getCode() == ci::app::KeyEvent::KEY_q) {
