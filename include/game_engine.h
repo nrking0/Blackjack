@@ -33,8 +33,6 @@ public:
 
     /**
      * Updates the game based on events that have happened.
-     *
-     * @param event a key that the player has pressed
      */
     void Update();
 
