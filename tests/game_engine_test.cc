@@ -68,3 +68,32 @@ TEST_CASE("Player Actions") {
         REQUIRE((int)game_engine.GetCurrentState() == 4);
     }
 }
+
+TEST_CASE("Game Function") {
+    GameEngine game_engine = GameEngine();
+
+    game_engine.Update();
+    game_engine.SetPlayerNumber(1);
+    game_engine.Update();
+
+    SECTION("Automatically set has played from update") {
+        for (int i = 0; i < 10; i++) {
+            game_engine.Hit();
+        }
+        game_engine.Update();
+        REQUIRE(game_engine.GetPlayers()[0].GetHasPlayed());
+        REQUIRE((int)game_engine.GetCurrentState() == 4);
+    }
+
+    SECTION("Reset") {
+        game_engine.Reset();
+        REQUIRE((int)game_engine.GetCurrentState() == 0);
+        REQUIRE(game_engine.GetPlayers().empty());
+    }
+
+    SECTION("New Hand") {
+        game_engine.NewGame();
+        REQUIRE(game_engine.GetPlayers()[0].GetHand().size() == 2);
+        REQUIRE(!game_engine.GetPlayers()[0].GetHasPlayed());
+    }
+}
