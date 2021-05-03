@@ -1,5 +1,0 @@
-/Users/nrking0/Code/cinder_0.9.2_mac/my-projects/final-project/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/Users/nrking0/Code/cinder_0.9.2_mac/my-projects/final-project/cmake-build-debug/CMakeFiles/blackjack.dir
-/Users/nrking0/Code/cinder_0.9.2_mac/my-projects/final-project/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/nrking0/Code/cinder_0.9.2_mac/my-projects/final-project/cmake-build-debug/CMakeFiles/blackjack-test.dir
-/Users/nrking0/Code/cinder_0.9.2_mac/my-projects/final-project/cmake-build-debug/CMakeFiles/main.dir

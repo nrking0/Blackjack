@@ -4,5 +4,5 @@
 using blackjack::GameEngine;
 
 TEST_CASE("TEST") {
-    
+
 }
