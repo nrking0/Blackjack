@@ -172,6 +172,10 @@ void GameEngine::Stay() {
     }
 }
 
+const std::vector<Player> & GameEngine::GetPlayers() const {
+    return players_;
+}
+
 void GameEngine::Draw(Turn turn) {
 
     for (int i = 0; i < num_players_; i++) {

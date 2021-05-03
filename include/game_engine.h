@@ -67,6 +67,7 @@ public:
 
     Turn GetCurrentState() const;
     void SetPlayerNumber(int num_players);
+    const std::vector<Player>& GetPlayers() const;
 
 private:
     const double kWindowSize = 750;
