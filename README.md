@@ -32,4 +32,4 @@ An example of a game being played can be seen below:
 For a deeper explanation of the rules of Blackjack, you can visit [*this website*](https://bicyclecards.com/how-to-play/blackjack/).
 
 -----
-*Last Updated April 3, 2021. Nick King, CS126, University of Illinois at Urbana-Champaign.*
+*Last Updated May 3, 2021. Nick King, CS126, University of Illinois at Urbana-Champaign.*
