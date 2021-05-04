@@ -74,7 +74,7 @@ private:
     std::string name_;
     std::vector<Card> hand_;
     bool has_played_;
-    int win_count;
+    int win_count_;
 
 };
 

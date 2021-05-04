@@ -35,7 +35,7 @@ public:
 private:
     const double kWindowSize = 750;
     const double kMargin = 100;
-    GameEngine game_engine = GameEngine();
+    GameEngine game_engine_ = GameEngine();
 
 };
 

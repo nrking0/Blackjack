@@ -6,10 +6,10 @@ namespace blackjack {
 GameEngine::GameEngine() {
     current_turn_ = Turn::HOME_SCREEN;
     num_players_ = 0;
-    deck = Deck();
-    deck.Shuffle();
-    dealer_.DealCard(deck.RemoveCard());
-    dealer_.DealCard(deck.RemoveCard());
+    deck_ = Deck();
+    deck_.Shuffle();
+    dealer_.DealCard(deck_.RemoveCard());
+    dealer_.DealCard(deck_.RemoveCard());
     current_winner_ = "";
 }
 
@@ -134,7 +134,7 @@ void GameEngine::Update() {
         case Turn::DEALERS_TURN:
             // Hitting until dealer's score is at or above 17, then moving on to next state
             while (dealer_.CalculateScore() < 17) {
-                dealer_.DealCard(deck.RemoveCard());
+                dealer_.DealCard(deck_.RemoveCard());
             }
             current_turn_ = Turn::GAME_FINISHED;
             Update();
@@ -150,8 +150,8 @@ void GameEngine::AddPlayers(int num_players) {
     players_.clear();
     for (int i = 1; i <= num_players; i++) {
         Player player = Player("Player " + std::to_string(i));
-        player.DealCard(deck.RemoveCard());
-        player.DealCard(deck.RemoveCard());
+        player.DealCard(deck_.RemoveCard());
+        player.DealCard(deck_.RemoveCard());
         players_.push_back(player);
     }
 }
@@ -159,27 +159,27 @@ void GameEngine::AddPlayers(int num_players) {
 void GameEngine::Reset() {
     num_players_ = 0;
     players_.clear();
-    deck = Deck();
-    deck.Shuffle();
+    deck_ = Deck();
+    deck_.Shuffle();
     dealer_.ClearWins();
     dealer_.ClearHand();
-    dealer_.DealCard(deck.RemoveCard());
-    dealer_.DealCard(deck.RemoveCard());
+    dealer_.DealCard(deck_.RemoveCard());
+    dealer_.DealCard(deck_.RemoveCard());
     current_turn_ = Turn::HOME_SCREEN;
     current_winner_ = "";
 }
 
 void GameEngine::NewGame() {
-    deck = Deck();
-    deck.Shuffle();
+    deck_ = Deck();
+    deck_.Shuffle();
     dealer_.ClearHand();
-    dealer_.DealCard(deck.RemoveCard());
-    dealer_.DealCard(deck.RemoveCard());
+    dealer_.DealCard(deck_.RemoveCard());
+    dealer_.DealCard(deck_.RemoveCard());
     for (Player &player : players_) {
         player.SetHasPlayed(false);
         player.ClearHand();
-        player.DealCard(deck.RemoveCard());
-        player.DealCard(deck.RemoveCard());
+        player.DealCard(deck_.RemoveCard());
+        player.DealCard(deck_.RemoveCard());
     }
     current_winner_ = "";
     current_turn_ = Turn::PLAYERS_TURN;
@@ -244,7 +244,7 @@ void GameEngine::Hit() {
         if (player.GetHasPlayed()) {
             continue;
         } else {
-            player.DealCard(deck.RemoveCard());
+            player.DealCard(deck_.RemoveCard());
             break;
         }
     }

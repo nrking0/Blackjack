@@ -7,7 +7,7 @@ namespace blackjack {
 Player::Player(std::string name) {
     name_ = std::move(name);
     has_played_ = false;
-    win_count = 0;
+    win_count_ = 0;
 }
 
 const std::vector<Card> &Player::GetHand() const {
@@ -58,15 +58,15 @@ void Player::SetHasPlayed(bool has_played) {
 }
 
 void Player::AddWin() {
-    win_count++;
+    win_count_++;
 }
 
 int Player::GetWinCount() const {
-    return win_count;
+    return win_count_;
 }
 
 void Player::ClearWins() {
-    win_count = 0;
+    win_count_ = 0;
 }
 
 void Player::Draw(int player_index, int num_players) const {
