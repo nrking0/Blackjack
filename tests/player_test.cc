@@ -58,7 +58,7 @@ TEST_CASE("Get score") {
     player.DealCard(card);
 
     SECTION("Check Score") {
-        REQUIRE(player.GetScore() == 5);
+        REQUIRE(player.CalculateScore() == 5);
     }
 
     player.ClearHand();
@@ -68,12 +68,12 @@ TEST_CASE("Get score") {
     player.DealCard(face_card);
 
     SECTION("Special ace case") {
-        REQUIRE(player.GetScore() == 21);
+        REQUIRE(player.CalculateScore() == 21);
     }
 
     player.DealCard(card);
 
     SECTION("Other special ace case") {
-        REQUIRE(player.GetScore() == 16);
+        REQUIRE(player.CalculateScore() == 16);
     }
 }

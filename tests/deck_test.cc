@@ -32,9 +32,10 @@ TEST_CASE("Remove Card") {
     }
 }
 
-// TODO: check deck equality
 TEST_CASE("Test Shuffle") {
+    Deck standard_deck = Deck();
     Deck deck = Deck();
     deck.Shuffle();
-    std::cout << deck;
+    bool not_equal_deck = standard_deck != deck;
+    REQUIRE(not_equal_deck);
 }
